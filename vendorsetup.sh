@@ -1,0 +1,2 @@
+add_lunch_combo omni_RMX2030-eng
+add_lunch_combo omni_RMX2030-userdebug
