@@ -125,3 +125,9 @@ TW_OZIP_DECRYPT_KEY := "1c4c1ea3a12531ae491b21bb31613c11"
 
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
+
+# exFAT FS Support
+TW_INCLUDE_FUSE_EXFAT := true
+
+# NTFS Support
+TW_INCLUDE_FUSE_NTFS := true
