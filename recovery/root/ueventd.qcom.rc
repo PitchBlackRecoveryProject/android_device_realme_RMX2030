@@ -31,7 +31,12 @@
 firmware_directories /vendor/firmware_mnt/image/
 
 # the DIAG device node is not world writable/readable.
+#ifdef ODM_WT_EDIT
+#Kaitong.Zhang@ODM_WT.Ad.Engineeringmode.1941873, 2019/04/07, Modify for WT mmigroup
+/dev/diag                 0666   root       system
+#else
 /dev/diag                 0660   system     oem_2901
+#endif
 
 /dev/genlock              0666   system     system
 /dev/wlan                 0660   wifi       wifi
@@ -57,6 +62,10 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/ipa_adpl             0660   system     oem_2905
 /dev/hab                  0666   system     system
 /dev/synx_device          0660   root       camera
+#ifdef ODM_WT_EDIT
+#Kaitong.Zhang@ODM_WT.Ad.Engineeringmode.1941873, 2019/04/12, Add for WT mmigroup
+/dev/hardwareinfo         0660   root       system
+#endif
 
 #permissions for CSVT
 /dev/smd11                0660   radio      radio
@@ -156,16 +165,12 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/mhi_qdss             0660   system    oem_2902
 /sys/class/qdss_bridge/mhi_qdss  mode      0660     system   oem_2902
 
-#leds
-/sys/class/leds/red      delay_on     0640    system    system
-/sys/class/leds/red      delay_off    0640    system    system
-/sys/class/leds/red      breath       0640    system    system
-/sys/class/leds/green    delay_on     0640    system    system
-/sys/class/leds/green    delay_off    0640    system    system
-/sys/class/leds/green    breath       0640    system    system
-/sys/class/leds/blue     delay_on     0640    system    system
-/sys/class/leds/blue     delay_off    0640    system    system
-/sys/class/leds/blue     breath       0640    system    system
+#ifdef VENDOR_EDIT
+#Qingwen.Liu@RM.BSP.Fingerprint.Basic. 2019/09/29, add for egis device
+/dev/esfp0                0660   system     system
+/sys/bus/platform/devices/egis_input navigation_enable 0660  system  system
+/sys/bus/platform/devices/egis_input navigation_event  0660  system  system
+#endif VENDOR_EDIT
 
 # wlan
 /dev/wcnss_wlan           0660   system     system
@@ -174,7 +179,6 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/devices/soc/a000000.qcom,wcnss-wlan/net/p2p0/queues/rx-* rps_cpus            0660   system     system
 /dev/spidev0.0            0660   system     audio
 /dev/i2c-7                0660   system     audio
-/dev/spidev0.1            0660   system	    system
 /dev/msm_camera/*         0660   system     camera
 /dev/gemini/              0660   system     camera
 /dev/mercury0             0660   system     camera
@@ -272,7 +276,6 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/devices/platform/soc/a98000.i2c/i2c-2/2-0020/input/input*  secure_touch_enable   0660 system drmrpc
 /sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input*  secure_touch          0440 system drmrpc
 /sys/devices/platform/soc/a84000.i2c/i2c-2/2-0020/input/input*  secure_touch_enable   0660 system drmrpc
-/sys/devices/platform/soc/soc:fpc1020*    fingerdown_wait 0220 system system
 
 # native sensors input
 /sys/devices/virtual/input/input*   enable_int       0660  system   input
@@ -417,3 +420,9 @@ firmware_directories /vendor/firmware_mnt/image/
 #QG device
 /dev/qg               0660   system     system
 /dev/qg_battery       0660   system     system
+
+
+#ifdef VENDOR_EDIT
+#liangkun@Swdp.shanghai 2017.05.18, change default owner for /dev/kneuron node
+/dev/kneuron              0660   system     system
+#endif /* VENDOR_EDIT */
